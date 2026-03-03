@@ -6,6 +6,7 @@ import './App.css'
 function App () {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  console.log(backendUrl)
 
   //feed vars
   const [seedFeed, setSeedFeed] = useState();
