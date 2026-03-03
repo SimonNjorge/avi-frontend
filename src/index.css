@@ -1,0 +1,298 @@
+html{
+    scroll-behavior: smooth;
+}
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 15;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header h2{
+    color: rgb(46, 89, 3);
+    color: transparent;
+    background: linear-gradient(to right, rgb(119, 6, 121),  rgb(78, 152, 5));
+    background-clip: text;
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 648px) {
+    .header h2{
+        font-size: 1.5rem;
+    }
+}
+
+.header p{
+    font-size: large;
+    letter-spacing: 2px;
+    border: 1px solid gainsboro;
+    padding: 3px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.main{
+    margin-top: 100px;
+    margin-left: auto;
+    margin-left: auto;
+    border: 1px solid rgb(251, 246, 246);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media  (max-width: 1200px) {
+    .main{
+        grid-template-columns: 1fr;
+    }
+}
+
+.use-model, 
+.feed-model{
+    border: 1px solid gainsboro;
+    padding: 10px;
+}
+
+.use-main,
+.feed-main{
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.use-model .title, 
+.feed-model .title{ 
+    font-size: large;
+    text-align: center;
+    color: rgb(20, 6, 67);
+    font-weight: 600;
+}
+
+.key{
+    align-self: flex-start;
+    width: 34px;
+    text-align: center;
+    border-radius: 10%;
+    margin-top: 14px;
+    font-weight: 600;
+    color: rgb(2, 69, 71);
+}
+
+.key-sec{
+    position: relative;
+    z-index: -1;
+    border: 1px solid rgb(232, 226, 226);
+    background-color: rgb(247, 232, 232);
+    display: flex;
+    gap: 16px;
+    padding: 0 5px;
+}
+
+.hide-key-btn{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: hidden;
+    opacity: 0;
+}
+
+.hide-key-btn:hover{
+    background-color: rgb(69, 67, 67);
+}
+
+.key-sec .keys{
+    line-height: 1.7;
+}
+
+.key-sec div p{
+    color: rgb(78, 39, 39);
+    font-size: medium;
+}
+
+.key-sec div p .key-head{
+   color: rgb(46, 89, 3);
+   font-weight: 600;
+}
+
+.range_1,
+.range_2,
+.range_3{
+    background-color: rgb(55, 45, 45);
+    border-radius: 8px;
+    padding: 1px 5px;
+    font-size: 14px;
+}
+
+.range_1{
+    color: rgb(138, 245, 245);
+}
+.range_2{
+    color: rgb(244, 107, 252);
+}
+.range_3{
+    color: rgb(255, 121, 224);
+}
+
+.data-sec{
+    margin-top: 20px;
+    border: 1px solid rgb(234, 225, 225);
+    padding: 20px;
+    background-color: rgb(226, 226, 198);
+}
+
+.data-sec .use-txt{
+    color: rgb(70, 6, 115);
+    line-height: 1.8;
+}
+
+.data-form-use,
+.data-form{
+    position: relative;
+    border: 1px solid rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-form-use label,
+.data-form label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .key-sec{
+        flex-direction: column;
+    }
+
+    .data-form-use,
+    .data-form{
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .data-form-use label,
+    .data-form label,
+    .data-form-use button,
+    .data-form button{
+        width: 180px;
+    }
+
+    .data-form-use button,
+    .data-form button{
+        height: 32px;
+    }
+
+}
+
+.success-msg{
+    position: absolute;
+    z-index: 10;
+    right: 10px;
+    bottom: -40px;
+    color: rgb(5, 253, 5);
+    background-color: rgb(0, 0, 0);
+    padding: 10px;
+    opacity: 0;
+    transition: .4s;
+    border-radius: 3px;
+}
+
+.success-msg::before{
+    position: absolute;
+    transform: rotateZ(45deg);
+    top: -4px;
+    right: 13px;
+    content: '';
+    height: 18px;
+    width: 18px;
+    background-color: rgb(0, 0, 0);
+}
+
+.data-form{
+    padding: 20px;
+}
+
+.data-form-use button,
+.data-form button{
+    height: 32px;
+    background-color: black;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.data-form-use button:hover,
+.data-form button:hover{
+    background-color: rgb(77, 65, 65);
+}
+
+.data-form-use label,
+.data-form label {
+    font-weight: 600;
+    color: rgb(6, 2, 29);
+    background-color: rgb(234, 229, 221);
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+.data-form-use label input,
+.data-form label input{
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    margin: 0 3px;
+    border: 1px solid rgb(2, 115, 141);
+    border-radius: 5px;
+}
+
+.accuracy-sec{
+    padding: 0 20px;
+    margin: 14px 0;
+    border: 1px solid rgb(194, 185, 185);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.accuracy-sec .acc{
+    font-size: 2rem;
+    font-weight: 600;
+    color: green;
+}
+
+.footer{
+    background-color: black;
+    color: white;
+}
+
+.footer p{
+    text-align: center;
+    letter-spacing: 2px;
+    padding: 20px 10px;
+}
+
+.weak-pos{
+  color: orange;
+}
+.strong-pos{
+  color: rgb(120, 137, 4);
+}
+.strongest-pos{
+  color: rgb(18, 189, 2);
+}
