@@ -6,7 +6,7 @@ import './App.css'
 function App () {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  console.log(backendUrl)
+  //console.log(backendUrl)
 
   //feed vars
   const [seedFeed, setSeedFeed] = useState();
@@ -65,7 +65,7 @@ function App () {
             });
 
             setResults(data.outComeData);
-            console.log(data.outComeData)
+            //console.log(data.outComeData)
             e.target.reset();
         }
     } catch (error) {
@@ -107,7 +107,7 @@ function App () {
                     <p>Fill in the fields below. Make sure your data is from a realtime aviator game (Sp) (put decimals where applicable).</p>
                     <form onSubmit={seedAndStreakBasedPredictor} className="data-form js-data-form-feed">
                         <label htmlFor="seed">
-                           <p>SEED </p> <input onChange={(e)=>setSeedFeed(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="" id="seed" required/>
+                           <p>SEED </p> <input onChange={(e)=>setSeedFeed(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} max={9.99} name="" id="seed" required/>
                         </label>
                         <label htmlFor="outcome">
                            <p>OUTCOME</p>  <input onChange={(e)=>setOutcome(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="" id="outcome" required/>
@@ -150,7 +150,7 @@ function App () {
                     </ul>
                     <form onSubmit={getOutcome} className="data-form-use js-data-form-use">
                         <label  className="use" htmlFor="seed">
-                            <p>SEED </p><input onChange={(e)=>setSeedUse(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="seed" id="seed" required/>
+                            <p>SEED </p><input onChange={(e)=>setSeedUse(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} max={9.99} name="seed" id="seed" required/>
                         </label>
                         <label className="use" htmlFor="streak">
                             <p>STREAK SCORE</p>  <input onChange={(e)=>setStreakScoreUse(e.target.value)} type="number" step={1} min={1} name="seed" id="streak" required/>
