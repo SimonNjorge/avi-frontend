@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import {toast, ToastContainer} from 'react-toastify'
 import './App.css'
@@ -19,31 +19,35 @@ function App () {
 
   //const [gaming, setGaming] = useState(false)
   const [results, setResults] = useState('')
-  const [action, setAction] = useState(false);
+  const [feedAction, setFeedAction] = useState(false);
+  const [useAction, setUseAction] = useState(false);
+
+  const resultsRef = useRef(null);
 
   async function seedAndStreakBasedPredictor (e) {
       try {
         e.preventDefault();
+        if(!feedAction){
+        
+            setFeedAction(true)
 
-        setAction(true)
-
-        const {data} = await axios.post(backendUrl+'/seed', {
-          seed: seedFeed,
-          outcome, 
-          streakScore
-        });
-        //console.log(response)
-        if(data.success){
-          toast.success(data.message);
-          e.target.reset();
-        } else {
-          toast.error(data.message)
+            const {data} = await axios.post(backendUrl+'/seed', {
+                seed: seedFeed,
+                outcome, 
+                streakScore
+            });
+            //console.log(response)
+            if(data.success){
+            toast.success(data.message);
+            e.target.reset();
+            } else {
+            toast.error(data.message)
+            }
         }
-
       } catch (error) {
         toast.error(error.message)
       } finally{
-        setAction(false)
+        setFeedAction(false)
       }
      
   }
@@ -51,24 +55,31 @@ function App () {
   async function getOutcome(e) {
     try {
       e.preventDefault()
-      setAction(true)
-      const {data} = await axios.post(backendUrl+'/use/seedData', {
-        seed: seedUse,
-        streakScore: streakScoreUse
-      });
+      if(!useAction){
 
-      setResults(data.outComeData);
-      console.log(data.outComeData)
-      e.target.reset();
+            setUseAction(true)
+
+            const {data} = await axios.post(backendUrl+'/use/seedData', {
+                seed: seedUse,
+                streakScore: streakScoreUse
+            });
+
+            setResults(data.outComeData);
+            console.log(data.outComeData)
+            e.target.reset();
+        }
     } catch (error) {
       toast.error(error.message);
     } finally {
-      setAction(false);
-
+      setUseAction(false);
     }
   }
 
-
+  useEffect(()=>{
+    if(useAction){
+        resultsRef.current.scrollIntoView()
+    }
+  }, [useAction])
 
   return (
     <>
@@ -93,16 +104,16 @@ function App () {
                     <button className="hide-key-btn js-hide-key">hide key</button>
                 </div>
                 <div className="data-sec">
-                    <p>Fill in the fields below. Make sure your data is from a realtime aviator game (put decimals where applicable).</p>
+                    <p>Fill in the fields below. Make sure your data is from a realtime aviator game (Sp) (put decimals where applicable).</p>
                     <form onSubmit={seedAndStreakBasedPredictor} className="data-form js-data-form-feed">
                         <label htmlFor="seed">
-                           <p>SEED </p> <input onChange={(e)=>setSeedFeed(e.target.value)} type="text" name="" id="seed" required/>
+                           <p>SEED </p> <input onChange={(e)=>setSeedFeed(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="" id="seed" required/>
                         </label>
                         <label htmlFor="outcome">
-                           <p>OUTCOME</p>  <input onChange={(e)=>setOutcome(e.target.value)} type="text" name="" id="outcome" required/>
+                           <p>OUTCOME</p>  <input onChange={(e)=>setOutcome(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="" id="outcome" required/>
                         </label>
                         <label htmlFor="streak">
-                            <p>STREAK SCORE </p><input onChange={(e)=>setStreakScore(e.target.value)} type="text" name="" id="streak" required/>
+                            <p>STREAK SCORE </p><input onChange={(e)=>setStreakScore(e.target.value)} type="number" step={1} min={1} name="" id="streak" required/>
                         </label>
                         <button className="js-feed-submit-btn" type="submit">submit</button>
                     </form>
@@ -139,12 +150,12 @@ function App () {
                     </ul>
                     <form onSubmit={getOutcome} className="data-form-use js-data-form-use">
                         <label  className="use" htmlFor="seed">
-                            <p>SEED </p><input onChange={(e)=>setSeedUse(e.target.value)} type="text" name="seed" id="seed" required/>
+                            <p>SEED </p><input onChange={(e)=>setSeedUse(Number(e.target.value).toFixed(2))} type="number" step={0.01} min={1.00} name="seed" id="seed" required/>
                         </label>
                         <label className="use" htmlFor="streak">
-                            <p>STREAK SCORE</p>  <input onChange={(e)=>setStreakScoreUse(e.target.value)} type="text" name="seed" id="streak" required/>
+                            <p>STREAK SCORE</p>  <input onChange={(e)=>setStreakScoreUse(e.target.value)} type="number" step={1} min={1} name="seed" id="streak" required/>
                         </label>
-                        <button type="submit" style={{width: '180px'}}  disabled={action}>predict</button>
+                        <button type="submit" style={{width: '180px'}} >predict</button>
                     </form>
                     <div className="results-sec">
                         <p className="title">Results</p>
@@ -163,12 +174,26 @@ function App () {
                                 <p>Strongest possibility</p>
                             </div>
                         </div>
-                        <div className="results">
-                          {
-                            results ?
-                            <p className={`outcome js-outcome ${results.streakScoreTick && results.variationScoreTick ? 'strongest-pos' : !results.streakScoreTick && results.variationScoreTick ? 'strong-pos' : !results.streakScoreTick && !results.variationScoreTick ? 'weak-pos': ''  }`}>{`Possibility X${results.possibleOutcome.lowerLimitPrediction} - X${results.possibleOutcome.upperLimitPrediction}`}</p>
-                            : <p className="outcome js-outcome">Fill the fields above and click predict to get a prediction</p>
-                          }
+                        <div className="results" >
+                            <div ref={resultsRef}>                            
+                                {
+                                    useAction ?
+                                    <div className='res-loading'>
+                                        <p>loading</p>
+                                        <div className='load-one'></div>
+                                        <div className='load-two'></div>
+                                        <div className='load-three'></div>
+                                    </div>
+                                    :
+                                    <>
+                                        {
+                                            results ?
+                                            <p className={`outcome js-outcome ${results.streakScoreTick && results.variationScoreTick ? 'strongest-pos' : !results.streakScoreTick && results.variationScoreTick ? 'strong-pos' : !results.streakScoreTick && !results.variationScoreTick ? 'weak-pos': ''  }`}>{`Possibility X${results.possibleOutcome.lowerLimitPrediction} - X${results.possibleOutcome.upperLimitPrediction}`}</p>
+                                            : <p className="outcome js-outcome">Fill the fields above and click predict to get a prediction</p>  
+                                        }
+                                    </>
+                                }
+                            </div>
                             <p>Enter resulting outcome on your gaming screen on the field below (optional).</p>
                             <div className="outcome-submission">
                                 <input placeholder="Outcome" type="text"></input>

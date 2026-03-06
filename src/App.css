@@ -25,11 +25,13 @@
     font-weight: 600;
     font-size: large;
 }
+
 .results{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .results input{
     width: 68px;
     height: 28px;
@@ -37,6 +39,70 @@
     text-align: center;
     border: 1px solid rgb(103, 103, 153);
 }
+
+.res-loading{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 20px 0;
+}
+.res-loading p{
+    font-size: smaller;
+    margin-right: 3px;
+    color: green;
+}
+
+.res-loading div{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.res-loading .load-one{
+    background-color: orange;
+    animation: loadOne 1s linear infinite;
+}
+
+.res-loading .load-two{
+    background-color: rgb(120, 137, 4);
+    animation: loadTwo 1s linear infinite;
+}
+
+.res-loading .load-three{
+    background-color: rgb(18, 189, 2);
+    animation: loadThree 1s linear infinite;
+}
+
+@keyframes loadOne {
+    0%{
+        transform: translateY(0);
+    }
+    33%{
+        transform: translateY(-8px);
+    }
+    66%{
+        transform: translateY(-8px);
+    }
+
+}
+
+@keyframes loadTwo {
+    33%{
+        transform: translateY(0);
+    }
+    66%{
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes loadThree {
+    66%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(-8px);
+    }
+}
+
 .outcome-submission{
     display: flex;
     align-items: center;

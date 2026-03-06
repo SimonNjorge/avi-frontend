@@ -1,6 +1,12 @@
 html{
     scroll-behavior: smooth;
 }
+
+body{
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+}
+
 .header{
     position: fixed;
     top: 0;
@@ -11,7 +17,7 @@ html{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: rgb(238, 238, 238);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -43,7 +49,7 @@ html{
     margin-left: auto;
     margin-left: auto;
     border: 1px solid rgb(251, 246, 246);
-    padding: 10px;
+    padding: 10px 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -57,8 +63,8 @@ html{
 
 .use-model, 
 .feed-model{
-    border: 1px solid gainsboro;
-    padding: 10px;
+    border-top: 1px solid gainsboro;
+    padding: 10px 0;
 }
 
 .use-main,
@@ -89,10 +95,10 @@ html{
     position: relative;
     z-index: -1;
     border: 1px solid rgb(232, 226, 226);
-    background-color: rgb(247, 232, 232);
+    background-color: rgb(219, 219, 219);
     display: flex;
     gap: 16px;
-    padding: 0 5px;
+    padding: 0 15px;
 }
 
 .hide-key-btn{
@@ -149,7 +155,7 @@ html{
     margin-top: 20px;
     border: 1px solid rgb(234, 225, 225);
     padding: 20px;
-    background-color: rgb(226, 226, 198);
+    background-color: rgb(230, 230, 227);
 }
 
 .data-sec .use-txt{
@@ -246,7 +252,7 @@ html{
 .data-form label {
     font-weight: 600;
     color: rgb(6, 2, 29);
-    background-color: rgb(234, 229, 221);
+    background-color: rgb(246, 242, 235);
     padding: 4px 6px;
     border-radius: 4px;
 }
@@ -254,7 +260,7 @@ html{
 .data-form-use label input,
 .data-form label input{
     text-align: center;
-    width: 30px;
+    width: 50px;
     height: 30px;
     margin: 0 3px;
     border: 1px solid rgb(2, 115, 141);
@@ -262,8 +268,9 @@ html{
 }
 
 .accuracy-sec{
+
     padding: 0 20px;
-    margin: 14px 0;
+    margin: 46px 0;
     border: 1px solid rgb(194, 185, 185);
     display: flex;
     align-items: center;
