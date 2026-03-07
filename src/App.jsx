@@ -115,7 +115,7 @@ function App () {
                         <label htmlFor="streak">
                             <p>STREAK SCORE </p><input onChange={(e)=>setStreakScore(e.target.value)} type="number" step={1} min={1} name="" id="streak" required/>
                         </label>
-                        <button className="js-feed-submit-btn" type="submit">submit</button>
+                        <button className="js-feed-submit-btn" type="submit">{feedAction ? 'submiting' : 'submit'}</button>
                     </form>
                 </div>
             </div>
