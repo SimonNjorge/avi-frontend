@@ -40,7 +40,9 @@ function App () {
                 seed: seedFeed,
                 outcome, 
                 streakScore
-            });
+            },{headers: {
+                "Authorization": auth
+            }});
             //console.log(response)
             if(data.success){
             toast.success(data.message);
@@ -62,14 +64,12 @@ function App () {
       e.preventDefault()
       if(!useAction){
 
-            setUseAction(true)
+            setUseAction(true);
 
             const {data} = await axios.post(backendUrl+'/use/seedData', {
                 seed: seedUse,
                 streakScore: streakScoreUse
-            }, {headers: {
-                "Authorization": `${auth}`
-            }});
+            });
 
             setResults(data.outComeData);
             //console.log(data.outComeData)
@@ -212,7 +212,6 @@ function App () {
                             <p>Enter resulting outcome on your gaming screen on the field below (optional).</p>
                             <div className="outcome-submission">
                                 <input placeholder="Outcome" type="text"></input>
-                                
                                 <button style={{width: '150px'}}>Submit</button>
                             </div>
                             <div className="accuracy-sec">
