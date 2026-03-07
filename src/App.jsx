@@ -7,7 +7,7 @@ function App () {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   //console.log(backendUrl)
-
+  const [auth, setAuth] = useState(localStorage.getItem('auth'));
   //feed vars
   const [seedFeed, setSeedFeed] = useState();
   const [outcome, setOutcome] = useState();
@@ -23,6 +23,11 @@ function App () {
   const [useAction, setUseAction] = useState(false);
 
   const resultsRef = useRef(null);
+
+  function setAuthh (e) {
+    setAuth(e.target.value);
+    localStorage.setItem('auth', JSON.stringify(e.target.value))
+  }
 
   async function seedAndStreakBasedPredictor (e) {
       try {
@@ -62,7 +67,9 @@ function App () {
             const {data} = await axios.post(backendUrl+'/use/seedData', {
                 seed: seedUse,
                 streakScore: streakScoreUse
-            });
+            }, {headers: {
+                "Authorization": `${auth}`
+            }});
 
             setResults(data.outComeData);
             //console.log(data.outComeData)
@@ -99,6 +106,7 @@ function App () {
                         <p> <span className="key-head">Seed</span> - A number that the algorithm throws </p>
                         <p> <span className="key-head">Outcome</span> - The number that followed the seed </p>
                         <p> <span className="key-head">Streak</span> - How many times in a row had numbers within the range that the seed belongs occured</p>
+                        <p> <span className="key-head">Auth Code</span> - Authorisation code to feed data into model (saved on browser once entered)</p>
                         <p> <span className="key-head">Ranges</span> - Range one: <span className="range_1">1.00 - 1.99</span> Range two: <span className="range_2"> 2.00 - 4.99</span> Range three: <span className="range_3">5.00 - 9.99</span></p>
                     </div>  
                     <button className="hide-key-btn js-hide-key">hide key</button>
@@ -115,7 +123,14 @@ function App () {
                         <label htmlFor="streak">
                             <p>STREAK SCORE </p><input onChange={(e)=>setStreakScore(e.target.value)} type="number" step={1} min={1} name="" id="streak" required/>
                         </label>
-                        <button className="js-feed-submit-btn" type="submit">{feedAction ? 'submiting' : 'submit'}</button>
+                        {
+                            auth == 'super101' || auth == 'authcodeAlgo' 
+                            ? ''
+                            : <label htmlFor="auth">
+                                <p>Auth Code</p> <input onChange={setAuthh} type="text"  name="" id="auth"/>
+                            </label>
+                        }
+                        <button className="js-feed-submit-btn" type="submit">{feedAction ? 'submiting...' : 'submit'}</button>
                     </form>
                 </div>
             </div>
