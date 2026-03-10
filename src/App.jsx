@@ -25,8 +25,8 @@ function App () {
   const resultsRef = useRef(null);
 
   function setAuthh (e) {
-    setAuth(e.target.value);
-    localStorage.setItem('auth', JSON.stringify(e.target.value))
+    setAuth(e.target.value.trim());
+    localStorage.setItem('auth', e.target.value.trim());
   }
 
   async function seedAndStreakBasedPredictor (e) {
@@ -107,7 +107,7 @@ function App () {
                         <p> <span className="key-head">Outcome</span> - The number that followed the seed </p>
                         <p> <span className="key-head">Streak</span> - How many times in a row had numbers within the range that the seed belongs occured</p>
                         <p> <span className="key-head">Auth Code</span> - Authorisation code to feed data into model (saved on browser once entered)</p>
-                        <p> <span className="key-head">Ranges</span> - Range one: <span className="range_1">1.00 - 1.99</span> Range two: <span className="range_2"> 2.00 - 4.99</span> Range three: <span className="range_3">5.00 - 9.99</span></p>
+                        <p> <span className="key-head">Ranges</span> - Range one: <span className="range_1">1.00 - 1.99</span> Range two: <span className="range_2"> 2.00 - and above</span>  </p>
                     </div>  
                     <button className="hide-key-btn js-hide-key">hide key</button>
                 </div>
@@ -146,7 +146,7 @@ function App () {
                     <div className="keys">
                         <p> <span className="key-head">Seed</span> - Latest outcome on your gaming screen</p>
                         <p> <span className="key-head">Streak</span> - How many times in a row had numbers within the range that the seed belongs occured</p>
-                        <p> <span className="key-head">Ranges</span> - Range one: <span className="range_1">1.00 - 1.99</span> Range two: <span className="range_2"> 2.00 - 4.99</span> Range three: <span className="range_3">5.00 - 9.99</span></p>
+                        <p> <span className="key-head">Ranges</span> - Range one: <span className="range_1">1.00 - 1.99</span> Range two: <span className="range_2"> 2.00 - and above</span> </p>
                     </div>  
                     <button className="hide-key-btn js-hide-key">hide key</button>
                 </div>
